@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -rf allora.sh allora-chain/ basic-coin-prediction-node/
+
 BOLD="\033[1m"
 UNDERLINE="\033[4m"
 DARK_YELLOW="\033[0;33m"
