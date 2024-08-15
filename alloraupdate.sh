@@ -9,7 +9,7 @@ CYAN="\033[0;36m"
 GREEN="\033[0;32m"
 RESET="\033[0m"
 
-🔥🔥echo -e "${BOLD}${DARK_YELLOW}\nОднострочнник сделал канал Dikci crypto🙈, все актуальные ноды там https://t.me/DikciCrypto${RESET}"🔥🔥
+🔥🔥echo -e "\nОднострочнник сделал канал Dikci crypto🙈, все актуальные ноды там https://t.me/DikciCrypto"🔥🔥
 
 echo -e "${BOLD}${DARK_YELLOW}Updating system dependencies...${RESET}"
 execute_with_prompt "sudo apt update -y && sudo apt upgrade -y"
