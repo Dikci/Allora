@@ -1,6 +1,7 @@
 #!/bin/bash
-
-rm -rf allora.sh allora-chain/ basic-coin-prediction-node/
+docker stop head-basic-eth-pred inference-basic-eth-pred worker updater-basic-eth-pred
+docker rm head-basic-eth-pred inference-basic-eth-pred worker updater-basic-eth-pred
+rm -rf allora.sh allora-chain/ basic-coin-prediction-node/  .allorad
 
 BOLD="\033[1m"
 UNDERLINE="\033[4m"
@@ -51,6 +52,8 @@ echo -e "${GREEN}${BOLD}Request faucet to your wallet from this link:${RESET} ht
 echo
 
 echo -e "${BOLD}${UNDERLINE}${DARK_YELLOW}Installing worker node...${RESET}"
+curl -sSL https://raw.githubusercontent.com/allora-network/allora-chain/main/install.sh | bash -s -- v0.3.0
+allorad version
 git clone https://github.com/allora-network/basic-coin-prediction-node
 cd basic-coin-prediction-node
 echo
@@ -63,60 +66,99 @@ cat <<EOF > config.json
         "addressKeyName": "testkey",
         "addressRestoreMnemonic": "$WALLET_SEED_PHRASE",
         "alloraHomeDir": "",
-        "gas": "1000000",
-        "gasAdjustment": 1.0,
-        "nodeRpc": "https://allora-rpc.testnet-1.testnet.allora.network/",
+        "gas": "auto",
+        "gasAdjustment": 1.5,
+        "nodeRpc": "https://rpc.ankr.com/http/allora_testnet",
         "maxRetries": 1,
         "delay": 1,
-        "submitTx": false
+        "submitTx": true
     },
-    "worker": [
-        {
-            "topicId": 1,
-            "inferenceEntrypointName": "api-worker-reputer",
-            "loopSeconds": 5,
-            "parameters": {
-                "InferenceEndpoint": "http://inference:8000/inference/{Token}",
-                "Token": "ETH"
-            }
-        },
-        {
-            "topicId": 2,
-            "inferenceEntrypointName": "api-worker-reputer",
-            "loopSeconds": 5,
-            "parameters": {
-                "InferenceEndpoint": "http://inference:8000/inference/{Token}",
-                "Token": "ETH"
-            }
-        },
-        {
-            "topicId": 7,
-            "inferenceEntrypointName": "api-worker-reputer",
-            "loopSeconds": 5,
-            "parameters": {
-                "InferenceEndpoint": "http://inference:8000/inference/{Token}",
-                "Token": "ETH"
-            }
-        }
-    ]
+     "worker": [
+       {
+           "topicId": 1,
+           "inferenceEntrypointName": "api-worker-reputer",
+           "loopSeconds": 1,
+           "parameters": {
+               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
+               "Token": "ETH"
+           }
+       },
+       {
+           "topicId": 2,
+           "inferenceEntrypointName": "api-worker-reputer",
+           "loopSeconds": 3,
+           "parameters": {
+               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
+               "Token": "ETH"
+           }
+       },
+       {
+           "topicId": 3,
+           "inferenceEntrypointName": "api-worker-reputer",
+           "loopSeconds": 5,
+           "parameters": {
+               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
+               "Token": "BTC"
+           }
+       },
+       {
+           "topicId": 4,
+           "inferenceEntrypointName": "api-worker-reputer",
+           "loopSeconds": 2,
+           "parameters": {
+               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
+               "Token": "BTC"
+           }
+       },
+       {
+           "topicId": 5,
+           "inferenceEntrypointName": "api-worker-reputer",
+           "loopSeconds": 4,
+           "parameters": {
+               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
+               "Token": "SOL"
+           }
+       },
+       {
+           "topicId": 6,
+           "inferenceEntrypointName": "api-worker-reputer",
+           "loopSeconds": 5,
+           "parameters": {
+               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
+               "Token": "SOL"
+           }
+       },
+       {
+           "topicId": 7,
+           "inferenceEntrypointName": "api-worker-reputer",
+           "loopSeconds": 2,
+           "parameters": {
+               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
+               "Token": "ETH"
+           }
+       },
+       {
+           "topicId": 8,
+           "inferenceEntrypointName": "api-worker-reputer",
+           "loopSeconds": 3,
+           "parameters": {
+               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
+               "Token": "BNB"
+           }
+       },
+       {
+           "topicId": 9,
+           "inferenceEntrypointName": "api-worker-reputer",
+           "loopSeconds": 5,
+           "parameters": {
+               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
+               "Token": "ARB"
+           }
+       }
+       
+   ]
 }
+
 EOF
 
 echo -e "${BOLD}${DARK_YELLOW}config.json file generated successfully!${RESET}"
-echo
-mkdir worker-data
-chmod +x init.config
-sleep 2
-./init.config
-
-echo
-echo -e "${BOLD}${UNDERLINE}${DARK_YELLOW}Building and starting Docker containers...${RESET}"
-docker compose build
-docker-compose up -d
-echo
-sleep 2
-echo -e "${BOLD}${DARK_YELLOW}Checking running Docker containers...${RESET}"
-docker ps
-echo
-execute_with_prompt 'docker logs -f worker'
-echo
