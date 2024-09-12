@@ -163,7 +163,10 @@ EOF
 
 echo -e "${BOLD}${DARK_YELLOW}config.json file generated successfully!${RESET}"
 
+sleep 30
+
 cd basic-coin-prediction-node
+
 cat <<EOF > .env
 TOKEN=ETH
 TRAINING_DAYS=30
@@ -172,6 +175,7 @@ MODEL=SVR
 REGION=US
 DATA_PROVIDER=binance
 CG_API_KEY=
+EOF
 
 chmod +x init.config
 ./init.config
