@@ -65,7 +65,7 @@ cat <<EOF > config.json
 {
     "wallet": {
         "addressKeyName": "testkey",
-        "addressRestoreMnemonic": "biology slogan donate smoke hurdle that evoke engage drama gift skin inch punch nasty very control twist tail april vault life fun achieve settle",
+        "addressRestoreMnemonic": "$WALLET_SEED_PHRASE",
         "alloraHomeDir": "",
         "gas": "auto",
         "gasAdjustment": 1.5,
@@ -75,36 +75,26 @@ cat <<EOF > config.json
         "submitTx": true
     },
      "worker": [
-       {
-           "topicId": 1,
-           "inferenceEntrypointName": "api-worker-reputer",
-           "loopSeconds": 1,
-           "parameters": 
-               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
-               "Token": "ETH"
-           }
-       },
-       {
-           "topicId": 2,
-           "inferenceEntrypointName": "api-worker-reputer",
-           "loopSeconds": 3,
-           "parameters": 
-               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
-               "Token": "ETH"
-           }
-       },
-       {
-           "topicId": 7,
-           "inferenceEntrypointName": "api-worker-reputer",
-           "loopSeconds": 2,
-           "parameters": 
-               "InferenceEndpoint": "http://inference:8000/inference/{Token}",
-               "Token": "ETH"
-           }
-       }
-       
-   ]
-}
+      {
+        "topicId": 1,
+        "inferenceEntrypointName": "api-worker-reputer",
+        "loopSeconds": 5,
+        "parameters": {
+          "InferenceEndpoint": "http://localhost:8000/inference/{Token}",
+          "Token": "ETH"
+        }
+      },
+      // worker providing inferences for topic ID 2
+      {
+        "topicId": 2, 
+        "inferenceEntrypointName": "api-worker-reputer",
+        "loopSeconds": 5,
+        "parameters": {
+          "InferenceEndpoint": "http://localhost:8000/inference/{Token}", // the specific endpoint providing inferences
+          "Token": "ETH" // The token specified in the endpoint
+        }
+      }
+    ],
 
 EOF
 
