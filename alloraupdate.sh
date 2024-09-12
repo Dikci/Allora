@@ -1,7 +1,7 @@
 #!/bin/bash
 docker stop head-basic-eth-pred inference-basic-eth-pred worker updater-basic-eth-pred
 docker rm head-basic-eth-pred inference-basic-eth-pred worker updater-basic-eth-pred
-rm -rf allora.sh allora-chain/ basic-coin-prediction-node/  .allorad
+rm -rf allora.sh allora-chain/ basic-coin-prediction-node/  .allorad allora-huggingface-walkthrough
 
 
 BOLD="\033[1m"
@@ -74,28 +74,18 @@ cat <<EOF > config.json
         "delay": 1,
         "submitTx": true
     },
-     "worker": [
-      {
-        "topicId": 1,
-        "inferenceEntrypointName": "api-worker-reputer",
-        "loopSeconds": 5,
-        "parameters": {
-          "InferenceEndpoint": "http://localhost:8000/inference/{Token}",
-          "Token": "ETH"
+         "worker": [
+        {
+            "topicId": 1,
+            "inferenceEntrypointName": "api-worker-reputer",
+            "loopSeconds": 5,
+            "parameters": {
+                "InferenceEndpoint": "http://inference:8000/inference/{Token}",
+                "Token": "ETH"
+            }
         }
-      },
-      // worker providing inferences for topic ID 2
-      {
-        "topicId": 2, 
-        "inferenceEntrypointName": "api-worker-reputer",
-        "loopSeconds": 5,
-        "parameters": {
-          "InferenceEndpoint": "http://localhost:8000/inference/{Token}", // the specific endpoint providing inferences
-          "Token": "ETH" // The token specified in the endpoint
-        }
-      }
-    ],
-
+    ]
+}
 EOF
 
 echo -e "${BOLD}${DARK_YELLOW}config.json file generated successfully!${RESET}"
@@ -118,4 +108,3 @@ chmod +x init.config
 ./init.config
 docker compose up --build -d
 docker compose logs -f
-
