@@ -1,0 +1,3 @@
+ALLORA_OFFCHAIN_NODE_CONFIG_JSON='{"wallet":{"addressKeyName":"testkey","addressRestoreMnemonic":"liquid jealous century such reward hurt stomach fee sorry void before account limb give squirrel wide sure team gasp regular food nephew ethics fall","alloraHomeDir":"","gas":"auto","gasAdjustment":1.5,"nodeRpc":"https://allora-testnet-rpc.itrocket.net","maxRetries":1,"delay":1,"submitTx":true},"worker":[{"topicId":1,"inferenceEntrypointName":"api-worker-reputer","loopSeconds":5,"parameters":{"InferenceEndpoint":"http://inference:8000/inference/{Token}","Token":"ETH"}}]}'
+NAME=testkey
+ENV_LOADED=true
