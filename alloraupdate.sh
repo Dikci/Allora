@@ -65,7 +65,7 @@ cat <<EOF > config.json
 {
     "wallet": {
         "addressKeyName": "testkey",
-        "addressRestoreMnemonic": "$WALLET_SEED_PHRASE",
+        "addressRestoreMnemonic": "biology slogan donate smoke hurdle that evoke engage drama gift skin inch punch nasty very control twist tail april vault life fun achieve settle",
         "alloraHomeDir": "",
         "gas": "auto",
         "gasAdjustment": 1.5,
@@ -79,7 +79,7 @@ cat <<EOF > config.json
            "topicId": 1,
            "inferenceEntrypointName": "api-worker-reputer",
            "loopSeconds": 1,
-           "parameters": {
+           "parameters": 
                "InferenceEndpoint": "http://inference:8000/inference/{Token}",
                "Token": "ETH"
            }
