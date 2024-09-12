@@ -3,6 +3,7 @@ docker stop head-basic-eth-pred inference-basic-eth-pred worker updater-basic-et
 docker rm head-basic-eth-pred inference-basic-eth-pred worker updater-basic-eth-pred
 rm -rf allora.sh allora-chain/ basic-coin-prediction-node/  .allorad
 
+
 BOLD="\033[1m"
 UNDERLINE="\033[4m"
 DARK_YELLOW="\033[0;33m"
