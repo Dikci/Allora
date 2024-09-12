@@ -41,10 +41,6 @@ if [[ ! "$response" =~ ^[Yy]$ ]]; then
     exit 1
 fi
 
-echo -e "${BOLD}${DARK_YELLOW}Updating system dependencies...${RESET}"
-execute_with_prompt "sudo apt update -y && sudo apt upgrade -y"
-echo
-
 echo -e "${BOLD}${DARK_YELLOW}Installing jq packages...${RESET}"
 execute_with_prompt "sudo apt install jq"
 echo
