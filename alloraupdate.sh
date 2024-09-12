@@ -88,7 +88,7 @@ cat <<EOF > config.json
            "topicId": 2,
            "inferenceEntrypointName": "api-worker-reputer",
            "loopSeconds": 3,
-           "parameters": {
+           "parameters": 
                "InferenceEndpoint": "http://inference:8000/inference/{Token}",
                "Token": "ETH"
            }
@@ -97,7 +97,7 @@ cat <<EOF > config.json
            "topicId": 7,
            "inferenceEntrypointName": "api-worker-reputer",
            "loopSeconds": 2,
-           "parameters": {
+           "parameters": 
                "InferenceEndpoint": "http://inference:8000/inference/{Token}",
                "Token": "ETH"
            }
