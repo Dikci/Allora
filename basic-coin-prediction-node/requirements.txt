@@ -1,9 +1,0 @@
-flask[async]
-gunicorn[gthread]
-numpy
-pandas
-Requests
-aiohttp
-multiprocess
-scikit_learn
-python-dotenv
