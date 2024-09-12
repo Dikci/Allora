@@ -162,3 +162,19 @@ cat <<EOF > config.json
 EOF
 
 echo -e "${BOLD}${DARK_YELLOW}config.json file generated successfully!${RESET}"
+
+cd basic-coin-prediction-node
+cat <<EOF > .env
+TOKEN=ETH
+TRAINING_DAYS=30
+TIMEFRAME=4h
+MODEL=SVR
+REGION=US
+DATA_PROVIDER=binance
+CG_API_KEY=
+
+chmod +x init.config
+./init.config
+docker compose up --build -d
+docker compose logs -f
+
