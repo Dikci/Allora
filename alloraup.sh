@@ -13,34 +13,6 @@ RESET="\033[0m"
 
 echo -e "\nОднострочнник сделал канал Dikci crypto🙈, все актуальные ноды там https://t.me/DikciCrypto"🔥🔥
 
-execute_with_prompt() {
-    echo -e "${BOLD}Executing: $1${RESET}"
-    if eval "$1"; then
-        echo "Command executed successfully."
-    else
-        echo -e "${BOLD}${DARK_YELLOW}Error executing command: $1${RESET}"
-        exit 1
-    fi
-}
-
-echo -e "${BOLD}${UNDERLINE}${DARK_YELLOW}Requirement for running allora-worker-node${RESET}"
-echo
-echo -e "${BOLD}${DARK_YELLOW}Operating System : Ubuntu 22.04${RESET}"
-echo -e "${BOLD}${DARK_YELLOW}CPU : Min of 1/2 core.${RESET}"
-echo -e "${BOLD}${DARK_YELLOW}RAM : 2 to 4 GB.${RESET}"
-echo -e "${BOLD}${DARK_YELLOW}Storage : SSD or NVMe with at least 5GB of space.${RESET}"
-echo
-
-echo -e "${CYAN}Do you meet all of these requirements? (Y/N):${RESET}"
-read -p "" response
-echo
-
-if [[ ! "$response" =~ ^[Yy]$ ]]; then
-    echo -e "${BOLD}${DARK_YELLOW}Error: You do not meet the required specifications. Exiting...${RESET}"
-    echo
-    exit 1
-fi
-
 echo -e "${BOLD}${DARK_YELLOW}Updating system dependencies...${RESET}"
 execute_with_prompt "sudo apt update -y && sudo apt upgrade -y"
 echo
@@ -65,11 +37,11 @@ cat <<EOF > config.json
 {
     "wallet": {
         "addressKeyName": "testkey",
-        "addressRestoreMnemonic": "biology slogan donate smoke hurdle that evoke engage drama gift skin inch punch nasty very control twist tail april vault life fun achieve settle",
+        "addressRestoreMnemonic": "$WALLET_SEED_PHRASE",
         "alloraHomeDir": "",
         "gas": "auto",
         "gasAdjustment": 1.5,
-        "nodeRpc": "https://rpc.ankr.com/http/allora_testnet",
+        "nodeRpc": "https://allora-rpc.testnet.allora.network/",
         "maxRetries": 1,
         "delay": 1,
         "submitTx": true
